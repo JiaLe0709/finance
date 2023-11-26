@@ -21,7 +21,7 @@ const StockPrice = ({ stockData }) => {
 
 export async function getServerSideProps() {
   try {
-    const tickets = ['GENTING:KLSE', 'AAPL:NASDAQ', 'GOOGL:NASDAQ'];
+    const tickets = app.ticket;
     const apiEndpoint = app.url;
 
     const stockData = await Promise.all(

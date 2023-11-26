@@ -12,7 +12,9 @@ const Layout = ({ children }) => {
                 <link rel='icon' href='/favicon.ico' />
                 <link rel="manifest" href="/manifest.json" />
             </Head>
-            {children}
+            <div className={`flex flex-col min-h-screen justify-between space-y-4`}>
+                {children}
+            </div>
         </>
     )
 }
