@@ -10,10 +10,11 @@ export default async function handler(req, res) {
     if (response.status === 200) {
       const html = response.data;
       const $ = cheerio.load(html);
-      
-      const stockPrice = $('.YMlKec.fxKbKc').text();
+
+      const stockPriceContainer = $('.YMlKec.fxKbKc').first();
+      const stockPrice = stockPriceContainer.text();
       const stockName = $('.zzDege').text();
-      
+
       res.status(200).json({ stockName, stockPrice });
     } else {
       console.error('Error:', response.status);
