@@ -1,17 +1,21 @@
 import app from '@/app.config';
+import Layout from '@/layouts/layout';
 import React from 'react';
 
 const StockPrice = ({ stockData }) => {
   return (
-    <div>
-      {stockData.map((stock, index) => (
-        <div key={index}>
-          <h1>{stock.stockName}</h1>
-          <h2>Stock Price:</h2>
-          <p>{stock.stockPrice}</p>
-        </div>
-      ))}
-    </div>
+    <Layout>
+      <div>
+        {stockData.map((stock, index) => (
+          <div key={index}>
+            <h1>{stock.stockName}</h1>
+            <h2>Stock Price:</h2>
+            <p>{stock.stockPrice}</p>
+          </div>
+        ))}
+      </div>
+    </Layout>
+
   );
 };
 
