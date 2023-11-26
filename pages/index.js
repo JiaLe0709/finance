@@ -1,4 +1,4 @@
-// pages/index.js
+import app from '@/app.config'
 import React from 'react';
 
 const StockPrice = ({ stockName, stockPrice }) => {
@@ -14,7 +14,7 @@ const StockPrice = ({ stockName, stockPrice }) => {
 export async function getServerSideProps() {
   try {
     const symbol = 'GOOG:NASDAQ'; // Replace with the desired stock symbol
-    const apiEndpoint = 'https://3000-jiale0709-finance-lephkxjhm8l.ws-us106.gitpod.io'; // Update with your API endpoint
+    const apiEndpoint = app.url; // Update with your API endpoint
     const res = await fetch(`${apiEndpoint}/api/stockprice?ticket=${symbol}`);
     const data = await res.json();
 
