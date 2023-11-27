@@ -1,23 +1,39 @@
 import app from '@/app.config';
 import Reload from "@/components/Home/reload"
+import DataTable from '../components/Home/dataTable';
 import Layout from '@/layouts/layout';
 import React from 'react';
 
 const StockPrice = ({ stockData }) => {
+  const columns = [
+    {
+      accessorKey: 'stockName',
+      header: 'Stock Name',
+    },
+    {
+      accessorKey: 'stockPrice',
+      header: 'Stock Price',
+    },
+    {
+      accessorKey: 'stockDate',
+      header: 'Stock Date',
+    },
+  ];
+
+  const data = stockData.map((stock, index) => ({
+    id: index.toString(),
+    stockName: stock.stockName,
+    stockPrice: stock.stockPrice,
+    stockDate: stock.stockDate,
+  }));
+
   return (
     <Layout>
-      <div>
-        {stockData.map((stock, index) => (
-          <div key={index}>
-            <h1>{stock.stockName}</h1>
-            <h2>Stock Price:</h2>
-            <p>{stock.stockPrice} - {stock.stockDate}</p>
-          </div>
-        ))}
-      </div>
-      <Reload />
+      <main className='mx-auto max-w-2xl space-y-8 my-10'>
+        <DataTable columns={columns} data={data} />
+        <Reload />
+      </main>
     </Layout>
-
   );
 };
 
