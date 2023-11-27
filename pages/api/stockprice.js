@@ -14,8 +14,16 @@ export default async function handler(req, res) {
       const stockPriceContainer = $('.YMlKec.fxKbKc').first();
       const stockPrice = stockPriceContainer.text();
       const stockName = $('.zzDege').text();
+      const rawDate = $('.ygUjEc[jsname="Vebqub"]').text();
 
-      res.status(200).json({ stockName, stockPrice });
+      const formattedDate = formatGoogleFinanceDate(rawDate);
+
+      res.status(200).json(
+        {
+          name: stockName,
+          price: stockPrice,
+          date: formattedDate
+        });
     } else {
       console.error('Error:', response.status);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -24,4 +32,17 @@ export default async function handler(req, res) {
     console.error('Error fetching data:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+}
+
+// Thanks gpt
+function formatGoogleFinanceDate(rawDate) {
+  const dateArray = rawDate.split(' · ');
+  const dateString = dateArray[0].trim();
+  const timeString = dateArray[1].trim();
+
+  const formattedDateString = dateString.replace(/([a-zA-Z]+)\.?\s(\d+)/, (_, month, day) => {
+    return `${month} ${day}, ${new Date().getFullYear()}`;
+  });
+
+  return `${formattedDateString} ${timeString} UTC+8`;
 }

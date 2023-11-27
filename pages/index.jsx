@@ -1,4 +1,5 @@
 import app from '@/app.config';
+import Reload from "@/components/Home/reload"
 import Layout from '@/layouts/layout';
 import React from 'react';
 
@@ -10,10 +11,11 @@ const StockPrice = ({ stockData }) => {
           <div key={index}>
             <h1>{stock.stockName}</h1>
             <h2>Stock Price:</h2>
-            <p>{stock.stockPrice}</p>
+            <p>{stock.stockPrice} - {stock.stockDate}</p>
           </div>
         ))}
       </div>
+      <Reload />
     </Layout>
 
   );
@@ -29,8 +31,9 @@ export async function getServerSideProps() {
         const res = await fetch(`${apiEndpoint}/api/stockprice?ticket=${symbol}`);
         const data = await res.json();
         return {
-          stockName: data.stockName,
-          stockPrice: data.stockPrice,
+          stockName: data.name,
+          stockPrice: data.price,
+          stockDate: data.date,
         };
       })
     );
