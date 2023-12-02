@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { lang } from '../../lib/lang';
+import { useRouter } from 'next/router';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -14,6 +16,8 @@ import {
 import { Button } from "@/components/ui/button"
 
 export default function DataTable({ columns, data }) {
+  const { locale } = useRouter()
+  const t = lang[locale]
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
@@ -43,7 +47,7 @@ export default function DataTable({ columns, data }) {
       <div className="max-w-screen-md w-full">
         <div className="flex items-center py-4">
           <Input
-            placeholder="Filter share name..."
+            placeholder={t.search}
             value={(table.getColumn("stockName")?.getFilterValue() || "")}
             onChange={(event) =>
               table.getColumn("stockName")?.setFilterValue(event.target.value)
@@ -53,7 +57,7 @@ export default function DataTable({ columns, data }) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+                {t.show} <ChevronDownIcon className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -120,7 +124,7 @@ export default function DataTable({ columns, data }) {
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
-                    No results.
+                    {t.no_result}
                   </TableCell>
                 </TableRow>
               )}
@@ -128,10 +132,6 @@ export default function DataTable({ columns, data }) {
           </Table>
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
-          <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
-          </div>
           <div className="space-x-2">
             <Button
               variant="outline"
@@ -139,7 +139,7 @@ export default function DataTable({ columns, data }) {
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
             >
-              Previous
+              {t.previous}
             </Button>
             <Button
               variant="outline"
@@ -147,7 +147,7 @@ export default function DataTable({ columns, data }) {
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >
-              Next
+              {t.next}
             </Button>
           </div>
         </div>

@@ -25,6 +25,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "middleware.ts",
     "**/*.ts",
     "**/*.tsx"
 , "pages/table.jsx"  ],
