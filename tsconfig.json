@@ -1,10 +1,14 @@
 {
   "paths": {
-    "@/*": ["./*"]
+    "@/*": [
+      "./*"
+    ]
   },
   "compilerOptions": {
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "lib": [
       "dom",
@@ -21,14 +25,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "react-jsx",
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     "middleware.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "pages/table.jsx"  ],
+    "**/*.tsx",
+    "pages/table.jsx"
+, "components/theme-provider.jsx"  ],
   "exclude": [
     "node_modules"
   ]
